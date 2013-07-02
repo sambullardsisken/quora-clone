@@ -1,0 +1,24 @@
+<h3>Open questions</h3>
+<ul>
+  <% @questions.each do |question| %>
+  <li>
+    <%=question.title%>
+    <br>
+    Asked by: <%=question.user.username%>
+    <ul>
+      <% question.answers.each do |answer| %>
+      <li>
+        <%=answer.text%>
+        <br>
+        Posted by: <%=answer.user.username%>
+      </li>
+      <% end %>
+      </ul>
+    <br>
+  </li>
+  <% end %>
+</ul>
+
+
+<%=link_to "back to user page", user_url(@user)%>
+<br>
