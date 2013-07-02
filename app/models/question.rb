@@ -3,5 +3,8 @@ class Question < ActiveRecord::Base
 
   has_many :answers
   belongs_to :user
-
+  has_many :question_taggings
+  has_many :topics, through: :question_taggings
+  has_many :question_followings
+  has_many :followers, through: :question_followings, source: :user
 end
