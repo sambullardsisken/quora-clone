@@ -8,4 +8,13 @@
 <% end %>
 </ul>
 
+<h4>Subjects following:</h4>
+<ul>
+  <% @subjects.each do |subject| %>
+  <li><%=subject.name%></li>
+  <% end %>
+  </ul>
+
+<%=link_to "questions index", questions_url, :method => :get%>
+
 <%=button_to "logout", session_url, :method => :delete %>

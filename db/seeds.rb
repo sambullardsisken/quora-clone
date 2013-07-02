@@ -20,3 +20,7 @@ a2.user_id = u1.id
 a1.save
 a2.save
 
+s1 = Subject.create!(name: "ultimate")
+s2 = Subject.create!(name: "swimming")
+s3 = Subject.create!(name: "books")
+

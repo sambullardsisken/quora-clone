@@ -1,7 +1,7 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  attr_accessible :blurb, :password, :session_token, :username
+  attr_accessible :blurb, :password, :session_token, :username, :subject_ids
 
   has_many :questions
   has_many :answers
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :post_votes
   has_many :posts_voted_on, through: :post_votes, source: :post
 
-  validates :username, presence: true
+  validates :username, presence: true, uniqueness: true
 
   def password=(password)
     self.password_digest = BCrypt::Password.create(password)

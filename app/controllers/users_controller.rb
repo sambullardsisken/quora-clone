@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
   def new
+    @subjects = Subject.all
     @user = User.new
   end
 
   def create
     @user = User.new(params[:user])
-    if @user.save
+    if @user.save!
       login(@user)
       redirect_to user_url(@user)
     else
@@ -15,6 +16,8 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    @subjects = @user.subjects
+    @questions = Question.all
     render :show
   end
 
