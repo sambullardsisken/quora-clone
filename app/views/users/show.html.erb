@@ -1,0 +1,11 @@
+<h3>User page</h3>
+<%= @user.username %>
+
+<h4>Questions</h4>
+<ul>
+<% @user.questions.each do |question| %>
+<li><%= question.title %></li>
+<% end %>
+</ul>
+
+<%=button_to "logout", session_url, :method => :delete %>
