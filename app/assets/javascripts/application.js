@@ -13,3 +13,21 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+$(function(){
+  console.log("document ready");
+  $(".answer_question").on("click", function(event) {
+    var id = parseInt($(event.currentTarget).attr("data-id"));
+    var answerForm = JST["templates/answer_form"]({ id: id });
+    $("#question_box" + id).html(answerForm);
+
+    $(".hide_answer_form").on("click", function(event) {
+      var id = parseInt($(event.currentTarget).attr("data-id"));
+      console.log(id);
+      $("#question_box" + id).html("");
+    });
+
+
+  });
+
+});

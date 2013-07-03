@@ -5,6 +5,9 @@
     <%=question.title%>
     <br>
     Asked by: <%=question.user.username%>
+    <br>
+    <a href="#" class="answer_question" data-id="<%=question.id%>">Add Answer</a>
+    <div id="question_box<%=question.id%>"></div>
     <ul>
       <% question.answers.each do |answer| %>
       <li>
