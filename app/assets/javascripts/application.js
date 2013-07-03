@@ -16,11 +16,13 @@
 
 $(function(){
   $(".answer_question").on("click", function(event) {
+    event.preventDefault();
     var id = parseInt($(event.currentTarget).attr("data-id"));
     var answerForm = JST["templates/answer_form"]({ id: id });
     $("#question_box" + id).html(answerForm);
 
     $(".hide_answer_form").on("click", function(event) {
+      event.preventDefault();
       $("#question_box" + id).html("");
     });
 
@@ -40,10 +42,12 @@ $(function(){
     });
   });
   $(".new_question_link").on("click", function() {
+    event.preventDefault();
     var questionForm = JST["templates/question_form"]({});
     $(".question").html(questionForm);
 
     $(".hide_question_form").on("click", function() {
+      event.preventDefault();
       console.log("clicked da link");
        $(".question").html("");
     });
