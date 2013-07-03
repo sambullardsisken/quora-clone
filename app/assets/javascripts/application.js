@@ -42,6 +42,7 @@ $(function(){
     });
   });
   $(".new_question_link").on("click", function() {
+    $(".question_message").html("");
     event.preventDefault();
     $.ajax({
       url: "/topics.json",
@@ -51,19 +52,48 @@ $(function(){
       }
     });
   });
+  $(".show_topics").on("click", function() {
+    var topicId = parseInt($(this).attr("data-id"))
+    $.ajax({
+      url: "/subjects/" + topicId + "/topics.json",
+      type: "get",
+      success: function(topicsData) {
+        console.log(topicsData);
+      }
+    });
+  });
 });
 
+function showTopicList() {
+
+}
+
 function setUpQuestionForm(topics) {
-  var questionForm = JST["templates/question_form"]({ topics: topics });
+  var questionForm = JST["templates/question_form"]({});
   $(".question").html(questionForm);
 
-  $(".hide_question_form").on("click", function() {
+
+  $(".add_tag").on("click", function() {
     event.preventDefault();
-    console.log("clicked da link");
+    var selectTopic = JST["templates/topic_select"]({ topics: topics })
+    $(".select_area").append(selectTopic);
+  });
+
+  $(".hide_question_form").on("click", function() {
+    $(".question_message").html("Ask a question");
+    event.preventDefault();
      $(".question").html("");
   });
   $(".question_form_submit").on("click", function(event) {
-    var question = {question: {title: $(".question_body").val()}}
+    event.preventDefault();
+    var topicIds = []
+    $(".topic_select").each(function() {
+      topicIds.push(parseInt($(this).val()));
+    });
+
+    console.log(topicIds);
+
+    var question = {question: {topic_ids: topicIds, title: $(".question_body").val()}}
     $.ajax({
       url: "/questions.json",
       type: "post",

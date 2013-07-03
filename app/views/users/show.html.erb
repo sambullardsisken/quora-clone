@@ -1,7 +1,7 @@
 <h3>User page</h3>
 <%= @user.username %>
 
-<h4>Questions</h4>
+<h4>Your Questions</h4>
 <ul>
 <% @user.questions.each do |question| %>
 <li><%= question.title %></li>
@@ -11,11 +11,14 @@
 <h4>Subjects following:</h4>
 <ul>
   <% @subjects.each do |subject| %>
-  <li><%=subject.name%></li>
+  <li><%=subject.name%>
+  <a href="#" class="show_topics" data-id="<%=subject.id%>">View topics</a>
+  <div class="topic_list"></div>
+  </li>
   <% end %>
   </ul>
 
-<a href="#" class="new_question_link">Ask a question</a>
+<a href="#" class="new_question_link"><div class="question_message">Ask a question</div></a>
 <br>
 <div class="question"></div>
 <%=link_to "questions index", questions_url, :method => :get%>
