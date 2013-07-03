@@ -8,7 +8,7 @@
     <br>
     <a href="#" class="answer_question" data-id="<%=question.id%>">Add Answer</a>
     <div id="question_box<%=question.id%>"></div>
-    <ul>
+    <ul id="answer_list<%=question.id%>">
       <% question.answers.each do |answer| %>
       <li>
         <%=answer.text%>

@@ -25,14 +25,37 @@ $(function(){
     });
 
     $(".answer_form_submit").on("click", function() {
-      var answer = {answer: {text: $("#answer_form").val()}}
-      console.log(answer);
+      var id = parseInt($(event.currentTarget).attr("data-id"));
+      var answer = {answer: {text: $("#answer_form" + id).val()}}
       $.ajax({
         url: "/questions/" + id + "/answers.json",
         type: "post",
         data: answer,
         success: function(answerData) {
-          console.log(answerData);
+          $("#answer_list" + id).append($("<li></li>").html(answerData.text));
+          $(".answer_form_submit").unbind("click");
+          $("#question_box" + id).html("");
+        }
+      });
+    });
+  });
+  $(".new_question_link").on("click", function() {
+    var questionForm = JST["templates/question_form"]({});
+    $(".question").html(questionForm);
+
+    $(".hide_question_form").on("click", function() {
+      console.log("clicked da link");
+       $(".question").html("");
+    });
+
+    $(".question_form_submit").on("click", function(event) {
+      var question = {question: {title: $(".question_body").val()}}
+      $.ajax({
+        url: "/questions.json",
+        type: "post",
+        data: question,
+        success: function(questionData) {
+          console.log("made a question");
         }
       });
     });
