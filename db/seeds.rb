@@ -20,7 +20,20 @@ a2.user_id = u1.id
 a1.save
 a2.save
 
-s1 = Subject.create!(name: "ultimate")
-s2 = Subject.create!(name: "swimming")
-s3 = Subject.create!(name: "books")
+s1 = Subject.create!(name: "sports")
+s2 = Subject.create!(name: "outdoor stuff")
+s3 = Subject.create!(name: "intellectual pursuits")
+
+t1 = s1.topics.create!(name: "ultimate")
+t2 = s1.topics.create!(name: "baseball")
+t3 = s1.topics.create!(name: "swimming")
+
+t5 = s2.topics.create!(name: "climbing")
+t6 = s2.topics.create!(name: "backpacking")
+t7 = s3.topics.create!(name: "physics")
+t8 = s3.topics.create!(name: "good books")
+
+
+
+
 

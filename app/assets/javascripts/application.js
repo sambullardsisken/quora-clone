@@ -43,26 +43,36 @@ $(function(){
   });
   $(".new_question_link").on("click", function() {
     event.preventDefault();
-    var questionForm = JST["templates/question_form"]({});
-    $(".question").html(questionForm);
-
-    $(".hide_question_form").on("click", function() {
-      event.preventDefault();
-      console.log("clicked da link");
-       $(".question").html("");
-    });
-
-    $(".question_form_submit").on("click", function(event) {
-      var question = {question: {title: $(".question_body").val()}}
-      $.ajax({
-        url: "/questions.json",
-        type: "post",
-        data: question,
-        success: function(questionData) {
-          console.log("made a question");
-        }
-      });
+    $.ajax({
+      url: "/topics.json",
+      type: "get",
+      success: function(topicsData) {
+        setUpQuestionForm(topicsData);
+      }
     });
   });
 });
+
+function setUpQuestionForm(topics) {
+  var questionForm = JST["templates/question_form"]({ topics: topics });
+  $(".question").html(questionForm);
+
+  $(".hide_question_form").on("click", function() {
+    event.preventDefault();
+    console.log("clicked da link");
+     $(".question").html("");
+  });
+  $(".question_form_submit").on("click", function(event) {
+    var question = {question: {title: $(".question_body").val()}}
+    $.ajax({
+      url: "/questions.json",
+      type: "post",
+      data: question,
+      success: function(questionData) {
+        console.log("made a question");
+        $(".question").html("");
+      }
+    });
+  });
+}
 

@@ -16,6 +16,11 @@ class UsersController < ApplicationController
   end
 
   def show
+    unless logged_in?
+      redirect_to new_session_url
+      return
+    end
+
     @user = current_user
     @subjects = @user.subjects
     @questions = Question.all
