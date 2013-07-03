@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   def new
     @subjects = Subject.all
     @user = User.new
+    render :new
   end
 
   def create
