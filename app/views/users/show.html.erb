@@ -12,8 +12,8 @@
 <ul>
   <% @subjects.each do |subject| %>
   <li><%=subject.name%>
-  <a href="#" class="show_topics" data-id="<%=subject.id%>">View topics</a>
-  <div class="topic_list"></div>
+  <a href="#" class="show_topics" id="show_topics<%=subject.id%>" data-id="<%=subject.id%>">View topics</a>
+  <div id="topic_list<%=subject.id%>"></div>
   </li>
   <% end %>
   </ul>

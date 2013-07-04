@@ -52,20 +52,38 @@ $(function(){
       }
     });
   });
-  $(".show_topics").on("click", function() {
+  $(".show_topics").on("click", function(event) {
+    event.preventDefault();
+    toggleMessage(this, "View topics", "close");
     var topicId = parseInt($(this).attr("data-id"))
     $.ajax({
       url: "/subjects/" + topicId + "/topics.json",
       type: "get",
       success: function(topicsData) {
-        console.log(topicsData);
+        showTopicList(topicsData, topicId)
       }
     });
   });
 });
 
-function showTopicList() {
+function toggleMessage(context, firstMessage, secondMessage) {
+  if (context.text === firstMessage) {
+    $(context).text(secondMessage);
+  }
+  else {
+    $(context).text(firstMessage);
+  }
+}
 
+function showTopicList(topics, id) {
+  console.log($("#topic_list" + id).html() === "")
+  if ($("#topic_list" + id).html() === "") {
+    var topicList = JST["templates/topic_index"]({topics: topics});
+    $("#topic_list" + id).html(topicList);
+  }
+  else {
+    $("#topic_list" + id).html("");
+  }
 }
 
 function setUpQuestionForm(topics) {
