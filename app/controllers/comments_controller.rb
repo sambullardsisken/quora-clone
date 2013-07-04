@@ -7,4 +7,11 @@ class CommentsController < ApplicationController
     end
   end
 
+  def index
+    @answer = Answer.find(params[:answer_id])
+    @comments = @answer.comments
+    respond_to do |format|
+      format.json { render :json => @comments.to_json(:include => :user) }
+    end
+  end
 end

@@ -11,16 +11,23 @@ Tags:
 <a href="#" class="add topic link">Add Topic</a>
 <div class="add_topic"></div>
 <br>
+<h4>Answers:</h4>
 <a href="#" class="answer_question" id="answer_question<%=@question.id%>" data-id="<%=@question.id%>">Add Answer</a>
 <div id="question_box<%=@question.id%>"></div>
 <ul id="answer_list<%=@question.id%>">
   <% @answers.each do |answer| %>
   <li>
     <%=answer.text%>
+    <a href="#"
+      class="comment_count"
+      data-id="<%=answer.id%>">
+      <%=answer.comments.count%> comments
+    </a>
     <br>
 
     Posted by: <%=answer.user.username%>
-    <div id="comment_count<%=answer.id%>"><%=answer.comments.count%> comments</div>
+
+    <div id="comments_container<%=answer.id%>"></div>
 
     <a href="#" class="post_comment" id="post_comment<%=answer.id%>" data-id="<%=answer.id%>">comment</a>
     <div id="comment_field<%=answer.id%>"></div>

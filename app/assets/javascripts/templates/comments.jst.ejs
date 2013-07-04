@@ -1,0 +1,9 @@
+<ul>
+<% comments.forEach(function(comment) { %>
+  <li>
+    <%=comment.text%>
+    <br>
+    <%=comment.user.username%>
+  </li>
+<% }) %>
+</ul>

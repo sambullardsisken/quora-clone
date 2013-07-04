@@ -87,12 +87,28 @@ $(function(){
         type: "post",
         data: comment,
         success: function(commentData) {
-          console.log("created comment!")
           $("#comment_field" + id).html("");
           $("#post_comment" + id).html("comment");
         }
       });
     });
+  });
+  $(".comment_count").on("click", function(event) {
+    event.preventDefault();
+    var answerId = parseInt($(this).attr("data-id"));
+    $.ajax({
+      url: "/answers/" + answerId + "/comments.json",
+      type: "get",
+      success: function(commentsData) {
+        if ($("#comments_container" + answerId).html() === "") {
+          commentsList = JST["templates/comments"]({ comments: commentsData})
+          $("#comments_container" + answerId).html(commentsList);
+        }
+        else {
+          $("#comments_container" + answerId).html("");
+        }
+      }
+    })
   });
 });
 

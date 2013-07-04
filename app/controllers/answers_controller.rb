@@ -9,4 +9,9 @@ class AnswersController < ApplicationController
     render :json => @answer
   end
 
+  def show
+    @answer = Answer.find(params[:id])
+    @comments = @answer.comments
+  end
+
 end
