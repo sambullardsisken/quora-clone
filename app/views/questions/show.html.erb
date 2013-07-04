@@ -1,6 +1,14 @@
 <h4><%=@question.title%></h4>
 Asked by: <%=@question.user.username%>
 <br>
+Tags:
+<% @topics.each do |topic| %>
+<%=link_to topic.name, topic_questions_url(topic)%>
+<%end%>
+<br>
+<a href="#" class="add topic link">Add Topic</a>
+<div class="add_topic"></div>
+<br>
 <a href="#" class="answer_question" id="answer_question<%=@question.id%>" data-id="<%=@question.id%>">Add Answer</a>
 <div id="question_box<%=@question.id%>"></div>
 <ul id="answer_list<%=@question.id%>">
@@ -9,6 +17,8 @@ Asked by: <%=@question.user.username%>
     <%=answer.text%>
     <br>
     Posted by: <%=answer.user.username%>
+    <a href="#" class="post_comment" id="post_comment<%=answer.id%>" data-id="<%=answer.id%>">comment</a>
+    <div id="comment_field<%=answer.id%>"></div>
   </li>
   <% end %>
   </ul>

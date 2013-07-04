@@ -17,9 +17,6 @@
 $(function(){
   $(".answer_question").on("click", function(event) {
     event.preventDefault();
-    console.log("THIS")
-    console.log(event.currentTarget);
-    console.log(this)
     toggleMessage(this, "Add Answer", "Cancel");
     var id = parseInt($(event.currentTarget).attr("data-id"));
     if ($("#question_box" + id).html() === "") {
@@ -41,7 +38,7 @@ $(function(){
           $("#answer_list" + id).append($("<li></li>").html(answerData.text));
           $(".answer_form_submit").unbind("click");
           $("#question_box" + id).html("");
-           $("#answer_question" + id).html("Add Answer")
+          $("#answer_question" + id).html("Add Answer")
         }
       });
     });
@@ -67,6 +64,34 @@ $(function(){
       success: function(topicsData) {
         showTopicList(topicsData, subjectId)
       }
+    });
+  });
+  $(".post_comment").on("click", function(event) {
+    event.preventDefault();
+    toggleMessage(this, "comment", "cancel");
+    var id = parseInt($(this).attr("data-id"));
+    if ($("#comment_field" + id).html() === "") {
+      var commentForm = JST["templates/comment_form"]({ id: id});
+      $("#comment_field" + id).html(commentForm)
+    }
+    else {
+      $("#comment_field" + id).html("");
+    }
+
+    $(".comment_form_submit").on("click", function() {
+      console.log("clicked da button")
+      var comment = {comment: {text: $("#comment_form" + id).val(), answer_id: id}}
+      console.log(comment);
+      $.ajax({
+        url: "/comments.json",
+        type: "post",
+        data: comment,
+        success: function(commentData) {
+          console.log("created comment!")
+          $("#comment_field" + id).html("");
+          $("#post_comment" + id).html("comment");
+        }
+      });
     });
   });
 });

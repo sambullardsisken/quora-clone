@@ -15,4 +15,6 @@ Quora::Application.routes.draw do
     resources :questions, :only => [:index]
   end
 
+  resources :comments, :only => [:create]
+
 end
