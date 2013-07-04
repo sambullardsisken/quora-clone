@@ -42,8 +42,8 @@ $(function(){
     });
   });
   $(".new_question_link").on("click", function() {
-    $(".question_message").html("");
     event.preventDefault();
+    toggleMessage(this, "Ask a question", "cancel");
     $.ajax({
       url: "/topics.json",
       type: "get",
@@ -67,6 +67,9 @@ $(function(){
 });
 
 function toggleMessage(context, firstMessage, secondMessage) {
+  console.log(context.text);
+  console.log(firstMessage);
+  console.log("Ask a question" === context.text);
   if (context.text === firstMessage) {
     $(context).text(secondMessage);
   }
@@ -86,9 +89,13 @@ function showTopicList(topics, id) {
 }
 
 function setUpQuestionForm(topics) {
-  var questionForm = JST["templates/question_form"]({});
-  $(".question").html(questionForm);
-
+  if ($(".question").html() === "") {
+    var questionForm = JST["templates/question_form"]({});
+    $(".question").html(questionForm);
+  }
+  else {
+    $(".question").html("");
+  }
 
   $(".add_tag").on("click", function() {
     event.preventDefault();
@@ -108,7 +115,6 @@ function setUpQuestionForm(topics) {
       topicIds.push(parseInt($(this).val()));
     });
 
-    console.log(topicIds);
 
     var question = {question: {topic_ids: topicIds, title: $(".question_body").val()}}
     $.ajax({

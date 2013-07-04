@@ -7,4 +7,6 @@ class Question < ActiveRecord::Base
   has_many :topics, through: :question_taggings
   has_many :question_followings
   has_many :followers, through: :question_followings, source: :user
+
+  validates :title, :presence => true
 end
