@@ -1,12 +1,16 @@
 <h3>Open questions</h3>
+<% unless @topic.nil? %>
+<h4><%=@topic.name%></h4>
+<% end %>
+
 <ul>
   <% @questions.each do |question| %>
   <li>
-    <%=question.title%>
+    <%=link_to question.title, question_url(question)%>
     <br>
     Asked by: <%=question.user.username%>
     <br>
-    <a href="#" class="answer_question" data-id="<%=question.id%>">Add Answer</a>
+    <a href="#" class="answer_question" id="answer_question<%=question.id%>" data-id="<%=question.id%>">Add Answer</a>
     <div id="question_box<%=question.id%>"></div>
     <ul id="answer_list<%=question.id%>">
       <% question.answers.each do |answer| %>

@@ -17,14 +17,18 @@
 $(function(){
   $(".answer_question").on("click", function(event) {
     event.preventDefault();
+    console.log("THIS")
+    console.log(event.currentTarget);
+    console.log(this)
+    toggleMessage(this, "Add Answer", "Cancel");
     var id = parseInt($(event.currentTarget).attr("data-id"));
-    var answerForm = JST["templates/answer_form"]({ id: id });
-    $("#question_box" + id).html(answerForm);
-
-    $(".hide_answer_form").on("click", function(event) {
-      event.preventDefault();
+    if ($("#question_box" + id).html() === "") {
+      var answerForm = JST["templates/answer_form"]({ id: id });
+      $("#question_box" + id).html(answerForm);
+    }
+    else {
       $("#question_box" + id).html("");
-    });
+    }
 
     $(".answer_form_submit").on("click", function() {
       var id = parseInt($(event.currentTarget).attr("data-id"));
@@ -37,6 +41,7 @@ $(function(){
           $("#answer_list" + id).append($("<li></li>").html(answerData.text));
           $(".answer_form_submit").unbind("click");
           $("#question_box" + id).html("");
+           $("#answer_question" + id).html("Add Answer")
         }
       });
     });
@@ -124,6 +129,7 @@ function setUpQuestionForm(topics) {
       success: function(questionData) {
         console.log("made a question");
         $(".question").html("");
+        $(".new_question_link").html("Ask a question");
       }
     });
   });

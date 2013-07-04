@@ -1,0 +1,14 @@
+<h4><%=@question.title%></h4>
+Asked by: <%=@question.user.username%>
+<br>
+<a href="#" class="answer_question" id="answer_question<%=@question.id%>" data-id="<%=@question.id%>">Add Answer</a>
+<div id="question_box<%=@question.id%>"></div>
+<ul id="answer_list<%=@question.id%>">
+  <% @answers.each do |answer| %>
+  <li>
+    <%=answer.text%>
+    <br>
+    Posted by: <%=answer.user.username%>
+  </li>
+  <% end %>
+  </ul>
