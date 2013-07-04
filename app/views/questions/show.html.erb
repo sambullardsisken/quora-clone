@@ -1,6 +1,8 @@
 <h4><%=@question.title%></h4>
 Asked by: <%=@question.user.username%>
 <br>
+<div class="answer_count"><%=@answers.count%> answers</div>
+<br>
 Tags:
 <% @topics.each do |topic| %>
 <%=link_to topic.name, topic_questions_url(topic)%>
@@ -16,7 +18,10 @@ Tags:
   <li>
     <%=answer.text%>
     <br>
+
     Posted by: <%=answer.user.username%>
+    <div id="comment_count<%=answer.id%>"><%=answer.comments.count%> comments</div>
+
     <a href="#" class="post_comment" id="post_comment<%=answer.id%>" data-id="<%=answer.id%>">comment</a>
     <div id="comment_field<%=answer.id%>"></div>
   </li>
