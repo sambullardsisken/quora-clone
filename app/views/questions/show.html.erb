@@ -12,3 +12,8 @@ Asked by: <%=@question.user.username%>
   </li>
   <% end %>
   </ul>
+
+<%=link_to "back to user page", user_url(@user)%>
+<br>
+<%=link_to "all questions", questions_url%>
+<br>

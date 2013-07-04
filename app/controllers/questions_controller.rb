@@ -23,6 +23,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @user = current_user
     @question = Question.find(params[:id])
     @answers = @question.answers
   end

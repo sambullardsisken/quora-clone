@@ -7,21 +7,7 @@
   <% @questions.each do |question| %>
   <li>
     <%=link_to question.title, question_url(question)%>
-    <br>
-    Asked by: <%=question.user.username%>
-    <br>
-    <a href="#" class="answer_question" id="answer_question<%=question.id%>" data-id="<%=question.id%>">Add Answer</a>
-    <div id="question_box<%=question.id%>"></div>
-    <ul id="answer_list<%=question.id%>">
-      <% question.answers.each do |answer| %>
-      <li>
-        <%=answer.text%>
-        <br>
-        Posted by: <%=answer.user.username%>
-      </li>
-      <% end %>
-      </ul>
-    <br>
+
   </li>
   <% end %>
 </ul>

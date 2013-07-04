@@ -72,9 +72,6 @@ $(function(){
 });
 
 function toggleMessage(context, firstMessage, secondMessage) {
-  console.log(context.text);
-  console.log(firstMessage);
-  console.log("Ask a question" === context.text);
   if (context.text === firstMessage) {
     $(context).text(secondMessage);
   }
