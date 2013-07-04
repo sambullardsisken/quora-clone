@@ -1,7 +1,7 @@
 <ul>
   <% topics.forEach(function(topic) { %>
     <li>
-      <%= topic.name %>
+      <a href="http://localhost:3000/topics/<%=topic.id%>/questions" class="topic_link" id="topic_link<%=topic.id%>" data-id="<%=topic.id%>"><%=topic.name%></a>
     </li>
   <% }) %>
 </ul>

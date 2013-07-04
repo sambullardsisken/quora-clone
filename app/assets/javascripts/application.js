@@ -55,12 +55,12 @@ $(function(){
   $(".show_topics").on("click", function(event) {
     event.preventDefault();
     toggleMessage(this, "View topics", "close");
-    var topicId = parseInt($(this).attr("data-id"))
+    var subjectId = parseInt($(this).attr("data-id"))
     $.ajax({
-      url: "/subjects/" + topicId + "/topics.json",
+      url: "/subjects/" + subjectId + "/topics.json",
       type: "get",
       success: function(topicsData) {
-        showTopicList(topicsData, topicId)
+        showTopicList(topicsData, subjectId)
       }
     });
   });
@@ -76,7 +76,6 @@ function toggleMessage(context, firstMessage, secondMessage) {
 }
 
 function showTopicList(topics, id) {
-  console.log($("#topic_list" + id).html() === "")
   if ($("#topic_list" + id).html() === "") {
     var topicList = JST["templates/topic_index"]({topics: topics});
     $("#topic_list" + id).html(topicList);
