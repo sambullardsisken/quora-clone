@@ -30,10 +30,17 @@ Tags:
     <div id="vote_count<%=answer.id%>"><%=answer.votes%>
     <%=votes_text%></div>
 
+    <div id="vote_text<%=answer.id%>">
+    <% if current_user.answers_voted_on.include?(answer)%>
+    <%="upvoted"%>
+    <% elsif current_user.answers_downvoted.include?(answer)%>
+    <%="downvoted"%>
+    <% else %>
     <a href="#" class="up_vote" data-id="<%=answer.id%>">+</a>
     <a href="#" class="down_vote" data-id="<%=answer.id%>">-</a>
     <br>
-
+    <% end %>
+    </div>
     Posted by: <%=answer.user.username%>
 
     <div id="comments_container<%=answer.id%>"></div>

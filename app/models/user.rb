@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :question_followers, through: :followed_questions, source: :user
   has_many :answer_votes
+  has_many :answer_down_votes
   has_many :answers_voted_on, through: :answer_votes, source: :answer
+  has_many :answers_downvoted, through: :answer_down_votes, source: :answer
   has_many :post_votes
   has_many :posts_voted_on, through: :post_votes, source: :post
 

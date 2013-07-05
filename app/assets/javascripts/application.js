@@ -111,6 +111,7 @@ $(function(){
     })
   });
   $(".up_vote").on("click", function(event) {
+    var that = this;
     event.preventDefault();
     var answerId = parseInt($(this).attr("data-id"));
     $.ajax({
@@ -121,10 +122,12 @@ $(function(){
         var newCount = parseInt($("#vote_count" + answerId).html()) + 1
         var text = newCount == 1 ? " vote" : " votes"
         $("#vote_count" + answerId).html(newCount + text);
+         $("#vote_text" + answerId).html("upvoted");
       }
     });
   });
   $(".down_vote").on("click", function(event) {
+    var that = this;
     event.preventDefault();
     var answerId = parseInt($(this).attr("data-id"));
     $.ajax({
@@ -135,6 +138,7 @@ $(function(){
         var newCount = parseInt($("#vote_count" + answerId).html()) - 1
         var text = newCount == 1 ? " vote" : " votes"
         $("#vote_count" + answerId).html(newCount + text);
+        $("#vote_text" + answerId).html("downvoted");
       }
     });
   });
