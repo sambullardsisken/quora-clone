@@ -1,7 +1,8 @@
 <h4><%=@question.title%></h4>
 Asked by: <%=@question.user.username%>
 <br>
-<div class="answer_count"><%=@answers.count%> answers</div>
+<%text = @answers.count == 1 ? "answer" : "answers"%>
+<div class="answer_count"><%=@answers.count%> <%=text%></div>
 <br>
 Tags:
 <% @topics.each do |topic| %>
@@ -16,13 +17,21 @@ Tags:
 <div id="question_box<%=@question.id%>"></div>
 <ul id="answer_list<%=@question.id%>">
   <% @answers.each do |answer| %>
+ <%comments_text = answer.comments.count == 1 ? "comment" : "comments"%>
+ <%votes_text = answer.votes == 1 ? "vote" : "votes"%>
   <li>
     <%=answer.text%>
     <a href="#"
       class="comment_count"
       data-id="<%=answer.id%>">
-      <%=answer.comments.count%> comments
+      <%=answer.comments.count%>
+      <%=comments_text%>
     </a>
+    <div id="vote_count<%=answer.id%>"><%=answer.votes%>
+    <%=votes_text%></div>
+
+    <a href="#" class="up_vote" data-id="<%=answer.id%>">+</a>
+    <a href="#" class="down_vote" data-id="<%=answer.id%>">-</a>
     <br>
 
     Posted by: <%=answer.user.username%>

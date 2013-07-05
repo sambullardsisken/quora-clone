@@ -5,9 +5,10 @@
 
 <ul>
   <% @questions.each do |question| %>
+  <%text = question.answers.count == 1 ? "answer" : "answers"%>
   <li>
     <%=link_to question.title, question_url(question)%>
-    <%=question.answers.count%> answers
+    <%=question.answers.count%> <%=text%>
   </li>
   <% end %>
 </ul>

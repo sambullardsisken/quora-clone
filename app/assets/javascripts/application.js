@@ -110,6 +110,34 @@ $(function(){
       }
     })
   });
+  $(".up_vote").on("click", function(event) {
+    event.preventDefault();
+    var answerId = parseInt($(this).attr("data-id"));
+    $.ajax({
+      url: "/answer_votes.json",
+      type: "post",
+      data: {answer_vote: {answer_id: answerId}},
+      success: function() {
+        var newCount = parseInt($("#vote_count" + answerId).html()) + 1
+        var text = newCount == 1 ? " vote" : " votes"
+        $("#vote_count" + answerId).html(newCount + text);
+      }
+    });
+  });
+  $(".down_vote").on("click", function(event) {
+    event.preventDefault();
+    var answerId = parseInt($(this).attr("data-id"));
+    $.ajax({
+      url: "/answer_down_votes.json",
+      type: "post",
+      data: {answer_down_vote: {answer_id: answerId}},
+      success: function() {
+        var newCount = parseInt($("#vote_count" + answerId).html()) - 1
+        var text = newCount == 1 ? " vote" : " votes"
+        $("#vote_count" + answerId).html(newCount + text);
+      }
+    });
+  });
 });
 
 function toggleMessage(context, firstMessage, secondMessage) {
@@ -146,11 +174,7 @@ function setUpQuestionForm(topics) {
     $(".select_area").append(selectTopic);
   });
 
-  $(".hide_question_form").on("click", function() {
-    $(".question_message").html("Ask a question");
-    event.preventDefault();
-     $(".question").html("");
-  });
+
   $(".question_form_submit").on("click", function(event) {
     event.preventDefault();
     var topicIds = []

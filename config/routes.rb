@@ -20,5 +20,7 @@ Quora::Application.routes.draw do
   end
 
   resources :comments, :only => [:create]
+  resources :answer_votes, :only => [:create]
+   resources :answer_down_votes, :only => [:create]
 
 end
