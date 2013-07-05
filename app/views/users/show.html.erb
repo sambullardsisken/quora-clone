@@ -48,5 +48,8 @@ $(function() {
   $(".refresh_feed").on("click", function() {
     getFeed();
   });
+  setInterval(function() {
+    getFeed();
+  }, 60 * 1000);
 });
 </script>
