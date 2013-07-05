@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
     @user = current_user
     @question = Question.find(params[:id])
     @topics = @question.topics
-    @answers = @question.answers
+    @answers = @question.answers.sort_by {|answer| answer.votes}.reverse
   end
 
 end
