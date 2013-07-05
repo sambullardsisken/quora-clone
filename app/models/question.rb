@@ -12,11 +12,17 @@ class Question < ActiveRecord::Base
   validates :title, :presence => true
 
 
+  def latest_update_time
+    latest_update.created_at
+  end
+
   def latest_update
-    changes = [self.created_at]
-    changes << self.answers.last.created_at unless self.answers.count == 0
-    changes << self.comments.last.created_at unless self.comments.count == 0
-    changes.max
+    changes = [self]
+    changes << self.answers.last unless self.answers.count == 0
+    changes << self.comments.last unless self.comments.count == 0
+    last_change = changes.max_by { |change| change.created_at }
+    self.last_update = last_change.to_json
+    last_change
   end
 
 end

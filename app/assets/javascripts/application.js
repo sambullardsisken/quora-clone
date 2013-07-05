@@ -162,10 +162,36 @@ function getFeed() {
     url: "/questions/feed.json",
     type: "get",
     success: function(feedData) {
-      feedView = JST["templates/question_index"]({questions: feedData })
+      feedView = JST["templates/question_index"]({ questions: feedData })
       $(".feed_questions").html(feedView);
+
     }
   });
+}
+
+function determineClass(obj) {
+  if (obj.question_id !== undefined) {
+    return "Answer";
+  }
+  else if (obj.answer_id !== undefined) {
+    return "Comment";
+  }
+  else {
+    return "Question";
+  }
+}
+
+function parseTime(millisecs) {
+  if (millisecs < 1000 * 60) {
+    return "< 1 min";
+  }
+  else if (millisecs < 1000 * 60 * 60) {
+    return parseInt(millisecs / (1000 * 60)) + " min";
+  }
+  else if (millisecs < 1000 * 60 * 60 * 60) {
+    return parseInt(millisecs / (1000 * 60 * 60)) + " hr";
+  }
+
 }
 
 function showTopicList(topics, id) {

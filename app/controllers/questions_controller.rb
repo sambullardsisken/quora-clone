@@ -35,10 +35,12 @@ class QuestionsController < ApplicationController
       questions << question unless questions.include?(question)
     end
     # questions << current_user.followed_questions
-    @questions = questions.sort_by { |question| question.latest_update }.reverse
+    @questions = questions.sort_by { |question| question.latest_update_time }
+    @questions.reverse!
     respond_to do |format|
       format.json { render :json => @questions }
     end
   end
+
 
 end
