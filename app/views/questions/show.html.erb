@@ -17,15 +17,16 @@ Tags:
 <div id="question_box<%=@question.id%>"></div>
 <ul id="answer_list<%=@question.id%>">
   <% @answers.each do |answer| %>
- <%comments_text = answer.comments.count == 1 ? "comment" : "comments"%>
- <%votes_text = answer.votes == 1 ? "vote" : "votes"%>
+  <% count = answer.comments.count %>
+   <%comments_text = count == 1 ? "comment" : "comments"%>
+   <%votes_text = answer.votes == 1 ? "vote" : "votes"%>
   <li>
     <%=answer.text%>
     <a href="#"
       class="comment_count"
       data-id="<%=answer.id%>">
-      <%=answer.comments.count%>
-      <%=comments_text%>
+      <span id="count<%=answer.id%>"><%=count%></span>
+      <span id="comments_text<%=answer.id%>"><%=comments_text%></span>
     </a>
     <div id="vote_count<%=answer.id%>"><%=answer.votes%>
     <%=votes_text%></div>

@@ -79,9 +79,7 @@ $(function(){
     }
 
     $(".comment_form_submit").on("click", function() {
-      console.log("clicked da button")
       var comment = {comment: {text: $("#comment_form" + id).val(), answer_id: id}}
-      console.log(comment);
       $.ajax({
         url: "/comments.json",
         type: "post",
@@ -89,6 +87,10 @@ $(function(){
         success: function(commentData) {
           $("#comment_field" + id).html("");
           $("#post_comment" + id).html("comment");
+          var newCount = parseInt($("#count" + id).html()) + 1;
+          var newMessage = newCount === 1 ? "comment" : "comments";
+          $("#count" + id).html(newCount);
+          $("#comments_text" + id).html(newMessage);
         }
       });
     });
