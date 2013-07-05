@@ -4,6 +4,9 @@ Quora::Application.routes.draw do
   resources :users
   resource :session
   resources :questions do
+    collection do
+      get 'feed'
+    end
     resources :answers, :only => [:create]
   end
 
@@ -21,6 +24,8 @@ Quora::Application.routes.draw do
 
   resources :comments, :only => [:create]
   resources :answer_votes, :only => [:create]
-   resources :answer_down_votes, :only => [:create]
+  resources :answer_down_votes, :only => [:create]
+
+  get 'questions/feed' => 'questions#feed', :as => :feed_questions
 
 end

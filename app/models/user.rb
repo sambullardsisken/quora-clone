@@ -9,7 +9,9 @@ class User < ActiveRecord::Base
   has_many :subject_choices
   has_many :topic_choices
   has_many :subjects, through: :subject_choices
-  has_many :topics, through: :topic_choices
+  # has_many :topics, through: :topic_choices
+  has_many :topics, through: :subjects
+  has_many :topical_questions, through: :topics, source: :questions
   has_many :question_followings
   has_many :followed_questions, through: :question_followings, source: :question
   has_many :posts

@@ -15,6 +15,8 @@
 //= require_tree .
 
 $(function(){
+
+
   $(".answer_question").on("click", function(event) {
     event.preventDefault();
     toggleMessage(this, "Add Answer", "Cancel");
@@ -153,6 +155,17 @@ function toggleMessage(context, firstMessage, secondMessage) {
   else {
     $(context).text(firstMessage);
   }
+}
+
+function getFeed() {
+  $.ajax({
+    url: "/questions/feed.json",
+    type: "get",
+    success: function(feedData) {
+      feedView = JST["templates/question_index"]({questions: feedData })
+      $(".feed_questions").html(feedView);
+    }
+  });
 }
 
 function showTopicList(topics, id) {

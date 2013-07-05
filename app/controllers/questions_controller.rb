@@ -29,4 +29,16 @@ class QuestionsController < ApplicationController
     @answers = @question.answers.sort_by {|answer| answer.votes}.reverse
   end
 
+  def feed
+    questions = current_user.questions
+    current_user.topical_questions.each do |question|
+      questions << question unless questions.include?(question)
+    end
+    # questions << current_user.followed_questions
+    @questions = questions.sort_by { |question| question.latest_update }.reverse
+    respond_to do |format|
+      format.json { render :json => @questions }
+    end
+  end
+
 end

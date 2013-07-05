@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
  */
+.sidebar {
+  float: left;
+}
+
+.feed {
+  float: left;
+  margin-left: 100px;
+}

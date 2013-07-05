@@ -1,3 +1,5 @@
+<div class="sidebar">
+
 <h3>User page</h3>
 <%= @user.username %>
 
@@ -25,3 +27,26 @@
 <%=link_to "questions index", questions_url, :method => :get%>
 
 <%=button_to "logout", session_url, :method => :delete %>
+
+</div>
+
+
+
+<div class="feed">
+<h4>Feed</h4>
+<a href="#" class="refresh_feed">refresh</a>
+<div class="feed_questions"></div>
+<ul>
+
+
+</ul>
+</div>
+
+<script type="text/javascript">
+$(function() {
+  getFeed();
+  $(".refresh_feed").on("click", function() {
+    getFeed();
+  });
+});
+</script>

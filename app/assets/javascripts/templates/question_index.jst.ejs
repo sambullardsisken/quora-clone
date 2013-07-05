@@ -1,7 +1,7 @@
 <ul>
   <% questions.forEach(function(question) { %>
     <li>
-      <% question.title %>
+      <a href="/questions/<%=question.id%>"> <%= question.title %> </a>
     </li>
   <% }) %>
 </ul>
