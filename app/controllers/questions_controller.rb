@@ -38,7 +38,7 @@ class QuestionsController < ApplicationController
     @questions = questions.sort_by { |question| question.latest_update_time }
     @questions.reverse!
     respond_to do |format|
-      format.json { render :json => @questions }
+      format.json { render :json => @questions.to_json(:include => :comments) }
     end
   end
 

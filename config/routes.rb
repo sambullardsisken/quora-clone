@@ -25,7 +25,7 @@ Quora::Application.routes.draw do
   resources :comments, :only => [:create]
   resources :answer_votes, :only => [:create]
   resources :answer_down_votes, :only => [:create]
-
+  resources :question_followings, :only => [:create, :destroy]
   get 'questions/feed' => 'questions#feed', :as => :feed_questions
 
 end

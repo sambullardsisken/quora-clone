@@ -146,6 +146,16 @@ $(function(){
       }
     });
   });
+  $(".follow_question").on("click", function(event) {
+    console.log($(this).html())
+    if ($(this).html() === "Unfollow") {
+      unfollowQuestion($(this).attr("data-id"), this)
+    }
+    else {
+      followQuestion($(this).attr("data-id"), this)
+    }
+  });
+
 });
 
 function toggleMessage(context, firstMessage, secondMessage) {
@@ -164,7 +174,6 @@ function getFeed() {
     success: function(feedData) {
       feedView = JST["templates/question_index"]({ questions: feedData })
       $(".feed_questions").html(feedView);
-
     }
   });
 }
@@ -191,7 +200,29 @@ function parseTime(millisecs) {
   else if (millisecs < 1000 * 60 * 60 * 60) {
     return parseInt(millisecs / (1000 * 60 * 60)) + " hr";
   }
+}
 
+function followQuestion(questionId, context) {
+  $.ajax({
+    url: "/question_followings.json",
+    type: "post",
+    data: {question_following: {question_id: questionId}},
+    success: function(questionFollowingData) {
+      console.log("following")
+      toggleMessage(context, "Follow", "Unfollow");
+    }
+  });
+}
+
+function unfollowQuestion(questionId, context) {
+  $.ajax({
+    url: "/question_followings/" + questionId + ".json",
+    type: "delete",
+    success: function() {
+      console.log("unfollowing")
+      toggleMessage(context, "Follow", "Unfollow");
+    }
+  });
 }
 
 function showTopicList(topics, id) {

@@ -45,7 +45,8 @@
 <script type="text/javascript">
 $(function() {
   getFeed();
-  $(".refresh_feed").on("click", function() {
+  $(".refresh_feed").on("click", function(event) {
+    event.preventDefault
     getFeed();
   });
   setInterval(function() {

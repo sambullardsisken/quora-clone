@@ -6,9 +6,12 @@
 <ul>
   <% @questions.each do |question| %>
   <%text = question.answers.count == 1 ? "answer" : "answers"%>
+  <%follow_message = @user.followed_questions.include?(question) ? "Unfollow"  : "Follow"%>
   <li>
     <%=link_to question.title, question_url(question)%>
     <%=question.answers.count%> <%=text%>
+
+    <a href="#" class="follow_question" data-id="<%=question.id%>"><%=follow_message%></a>
   </li>
   <% end %>
 </ul>
