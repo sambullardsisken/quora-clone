@@ -4,11 +4,18 @@
       <a href="/questions/<%=question.id%>"> <%= question.title %> </a>
 
       <%var className = determineClass(JSON.parse(question.last_update))%>
+
       <%if (className === "Question") { %>
         <% className = "" %>
       <%}%>
       <%var time = JSON.parse(question.last_update).created_at%>
-      <%=className%> posted <%=parseTime(new Date() - new Date(time))%> ago
+      <%=className%> posted <%=parseTime(new Date() - new Date(time), time)%>
+      <br>
+
+      <%if (className !== "Question") { %>
+        <%=JSON.parse(question.last_update).text%>
+        <%}%>
+
     </li>
   <% }) %>
 </ul>

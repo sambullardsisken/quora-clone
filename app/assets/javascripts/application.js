@@ -190,16 +190,23 @@ function determineClass(obj) {
   }
 }
 
-function parseTime(millisecs) {
+function parseTime(millisecs, dateObj) {
   if (millisecs < 1000 * 60) {
-    return "< 1 min";
+    return "< 1 min ago";
   }
   else if (millisecs < 1000 * 60 * 60) {
-    return parseInt(millisecs / (1000 * 60)) + " min";
+    return parseInt(millisecs / (1000 * 60)) + " min ago";
   }
-  else if (millisecs < 1000 * 60 * 60 * 60) {
-    return parseInt(millisecs / (1000 * 60 * 60)) + " hr";
+  else if (millisecs < 1000 * 60 * 60 * 24) {
+    return parseInt(millisecs / (1000 * 60 * 60)) + " hr ago";
   }
+  else {
+    return getTimeStamp(dateObj)
+  }
+}
+
+function getTimeStamp(obj) {
+  return new Date(obj).toLocaleString("en-US", {timeZone: "America/Los_Angeles"})
 }
 
 function followQuestion(questionId, context) {
