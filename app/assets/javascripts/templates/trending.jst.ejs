@@ -1,0 +1,7 @@
+<ul>
+<%topics.forEach(function(topic) {%>
+  <li>
+  <a href="/topics/<%=topic.id%>/questions"><%=topic.name%></a>
+  </li>
+<%})%>
+</ul>

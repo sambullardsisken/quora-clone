@@ -12,4 +12,11 @@ class TopicsController < ApplicationController
     end
   end
 
+  def trending
+    @topics = Topic.most_popular
+    respond_to do |format|
+      format.json { render :json => @topics }
+    end
+  end
+
 end

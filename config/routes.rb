@@ -19,6 +19,9 @@ Quora::Application.routes.draw do
   end
 
   resources :topics, :only => [:index, :show] do
+    collection do
+      get 'trending'
+    end
     resources :questions, :only => [:index]
   end
 

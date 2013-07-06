@@ -3,6 +3,25 @@
 <h3>User page</h3>
 <%= @user.username %>
 
+
+<h4>Subjects Following</h4>
+<ul>
+  <% @subjects.each do |subject| %>
+  <li><%=subject.name%>
+    <br>
+  <a href="#" class="show_topics" id="show_topics<%=subject.id%>" data-id="<%=subject.id%>">View Topics</a>
+  <div id="topic_list<%=subject.id%>"></div>
+  </li>
+  <% end %>
+  </ul>
+
+<a href="#" class="new_question_link">Ask a Question</a>
+<br>
+<div class="question"></div>
+
+<h4>Trending Topics</h4>
+<div class="trending"></div>
+
 <h4>Your Questions</h4>
 <ul>
 <% @user.questions.each do |question| %>
@@ -10,30 +29,17 @@
 <% end %>
 </ul>
 
-<h4>Subjects following:</h4>
-<ul>
-  <% @subjects.each do |subject| %>
-  <li><%=subject.name%>
-  <a href="#" class="show_topics" id="show_topics<%=subject.id%>" data-id="<%=subject.id%>">View topics</a>
-  <div id="topic_list<%=subject.id%>"></div>
-  </li>
-  <% end %>
-  </ul>
 
-<a href="#" class="new_question_link">Ask a question</a>
-<br>
-<div class="question"></div>
+<%=link_to "All Questions", questions_url, :method => :get%>
 
-<%=link_to "questions index", questions_url, :method => :get%>
-
-<%=button_to "logout", session_url, :method => :delete %>
+<%=button_to "Logout", session_url, :method => :delete %>
 
 </div>
 
 
 
 <div class="feed">
-<h4>Feed</h4>
+<h4>Most Recent</h4>
 <a href="#" class="refresh_feed">refresh</a>
 <div class="feed_questions"></div>
 <ul>
@@ -45,12 +51,14 @@
 <script type="text/javascript">
 $(function() {
   getFeed();
+  getTrendingTopics();
   $(".refresh_feed").on("click", function(event) {
     event.preventDefault
     getFeed();
   });
   setInterval(function() {
     getFeed();
+    getTrendingTopics();
   }, 60 * 1000);
 });
 </script>

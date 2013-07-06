@@ -13,9 +13,11 @@
  */
 .sidebar {
   float: left;
+  width: 200px;
 }
 
 .feed {
   float: left;
   margin-left: 100px;
+  width: 400px;
 }

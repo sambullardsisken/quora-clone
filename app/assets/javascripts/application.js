@@ -47,7 +47,7 @@ $(function(){
   });
   $(".new_question_link").on("click", function() {
     event.preventDefault();
-    toggleMessage(this, "Ask a question", "cancel");
+    toggleMessage(this, "Ask a Question", "Cancel");
     $.ajax({
       url: "/topics.json",
       type: "get",
@@ -58,7 +58,7 @@ $(function(){
   });
   $(".show_topics").on("click", function(event) {
     event.preventDefault();
-    toggleMessage(this, "View topics", "close");
+    toggleMessage(this, "View Topics", "Close");
     var subjectId = parseInt($(this).attr("data-id"))
     $.ajax({
       url: "/subjects/" + subjectId + "/topics.json",
@@ -155,7 +155,10 @@ $(function(){
       followQuestion($(this).attr("data-id"), this)
     }
   });
-
+  $(".trending_view").on("click", function(event) {
+    event.preventDefault();
+    getTrendingTopics();
+  });
 });
 
 function toggleMessage(context, firstMessage, secondMessage) {
@@ -174,6 +177,18 @@ function getFeed() {
     success: function(feedData) {
       feedView = JST["templates/question_index"]({ questions: feedData })
       $(".feed_questions").html(feedView);
+    }
+  });
+}
+
+function getTrendingTopics() {
+  $.ajax({
+    url: "/topics/trending.json",
+    type: "get",
+    success: function(topicsData) {
+      console.log(topicsData)
+      trendingView = JST["templates/trending"]({ topics: topicsData})
+     $(".trending").html(trendingView);
     }
   });
 }
