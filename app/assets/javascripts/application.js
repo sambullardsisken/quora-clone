@@ -108,10 +108,11 @@ $(function(){
           var newMessage = newCount === 1 ? "comment" : "comments";
           $("#count" + id).html(newCount);
           $("#comments_text" + id).html(newMessage);
-
-
-          commentsList = JST["templates/comments"]({ comments: commentsData})
-          $("#comments_container" + id).html(commentsList);
+          console.log(commentData)
+          var commentView = JST["templates/comment_view"]({comment: commentData});
+          console.log(commentView);
+          var listItem = $("<li></li>").html(commentView)
+          $("#comments_for_answer" + id).append(listItem)
         }
       });
     });
@@ -124,7 +125,7 @@ $(function(){
       type: "get",
       success: function(commentsData) {
         if ($("#comments_container" + answerId).html() === "") {
-          commentsList = JST["templates/comments"]({ comments: commentsData})
+          commentsList = JST["templates/comments"]({ comments: commentsData, id: answerId})
           $("#comments_container" + answerId).html(commentsList);
         }
         else {
