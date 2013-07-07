@@ -282,7 +282,7 @@ function setUpQuestionForm(topics) {
     });
 
 
-    var question = {question: {topic_ids: topicIds, title: $(".question_body").val()}}
+    var question = {question: {topic_ids: topicIds, title: $(".question_title").val(), body: $(".question_body").val()}}
     $.ajax({
       url: "/questions.json",
       type: "post",

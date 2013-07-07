@@ -1,5 +1,5 @@
 class Question < ActiveRecord::Base
-  attr_accessible :title, :user_id, :votes, :topic_ids
+  attr_accessible :title, :body, :user_id, :votes, :topic_ids
 
   has_many :answers
   has_many :comments, through: :answers
