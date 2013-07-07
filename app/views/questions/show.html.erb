@@ -1,6 +1,8 @@
 <h4><%=@question.title%></h4>
 Asked by: <%=@question.user.username%>
 <br>
+<%=@question.created_at.localtime.strftime('%m/%d/%Y %H:%M')%>
+<br>
 <%text = @answers.count == 1 ? "answer" : "answers"%>
 <div class="answer_count"><%=@answers.count%> <%=text%></div>
 <br>
@@ -49,7 +51,9 @@ Tags:
     <% if current_user.answers.include?(answer)%>
       <a href="#" class="delete_answer" data-id="<%=answer.id%>">Remove</a>
     <% end %>
-
+    <br>
+    <%=answer.created_at.localtime.strftime('%m/%d/%Y %H:%M')%>
+    <br>
     <div id="comments_container<%=answer.id%>"></div>
 
     <a href="#" class="post_comment" id="post_comment<%=answer.id%>" data-id="<%=answer.id%>">comment</a>

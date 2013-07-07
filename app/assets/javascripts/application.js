@@ -108,6 +108,10 @@ $(function(){
           var newMessage = newCount === 1 ? "comment" : "comments";
           $("#count" + id).html(newCount);
           $("#comments_text" + id).html(newMessage);
+
+
+          commentsList = JST["templates/comments"]({ comments: commentsData})
+          $("#comments_container" + id).html(commentsList);
         }
       });
     });
@@ -203,7 +207,6 @@ function getTrendingTopics() {
     url: "/topics/trending.json",
     type: "get",
     success: function(topicsData) {
-      console.log(topicsData)
       trendingView = JST["templates/trending"]({ topics: topicsData})
      $(".trending").html(trendingView);
     }
@@ -238,7 +241,9 @@ function parseTime(millisecs, dateObj) {
 }
 
 function getTimeStamp(obj) {
-  return new Date(obj).toLocaleString("en-US", {timeZone: "America/Los_Angeles"})
+  var newObj = parseInt(new Date(obj).getTime() / 60000) * 60000
+  var fullTime = new Date(newObj).toLocaleString("en-US", {timeZone: "America/Los_Angeles"})
+  return fullTime.slice(0, -6)
 }
 
 function followQuestion(questionId, context) {
