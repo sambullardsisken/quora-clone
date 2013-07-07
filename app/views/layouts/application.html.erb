@@ -26,6 +26,9 @@
             <div class="span12">
               <%= render 'layouts/messages' %>
               <%= yield %>
+              <%if logged_in?%>
+              logged in as <%= current_user.username%>
+              <%end%>
             </div>
           </div>
           <footer>

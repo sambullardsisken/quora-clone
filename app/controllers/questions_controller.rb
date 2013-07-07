@@ -34,10 +34,11 @@ class QuestionsController < ApplicationController
   def feed
     questions = current_user.questions
     current_user.topical_questions.each do |question|
-      questions << question unless questions.include?(question)
+      questions += [question] unless questions.include?(question)
     end
-    followed_questions = current_user.followed_questions
-    questions << followed_questions
+    current_user.followed_questions.each do |question|
+      questions += [question] unless questions.include?(question)
+    end
     @questions = questions.sort_by { |question| question.latest_update_time }
     @questions.reverse!
     respond_to do |format|

@@ -22,7 +22,6 @@ class UsersController < ApplicationController
       return
     end
     @subjects = @user.subjects
-    @questions = Question.all
     render :show
   end
 
