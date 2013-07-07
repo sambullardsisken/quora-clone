@@ -1,0 +1,22 @@
+<% var count = 0 %>
+<% var commentsText = "comments" %>
+<% var votesText = "votes" %>
+
+  <%= answer.text %>
+  <a href="#"
+    class="comment_count"
+    data-id="<%=answer.id%>">
+    <span id="count<%=answer.id%>"><%=count%></span>
+    <span id="comments_text<%=answer.id%>"><%=commentsText%></span>
+  </a>
+  <div id="vote_count<%=answer.id%>"> 0 <%=votesText%></div>
+
+
+  Posted by: <%=answer.user.username%>
+
+  <a href="#" class="delete_answer" data-id="<%=answer.id%>">Remove</a>
+
+  <div id="comments_container<%=answer.id%>"></div>
+
+  <a href="#" class="post_comment" id="post_comment<%=answer.id%>" data-id="<%=answer.id%>">comment</a>
+  <div id="comment_field<%=answer.id%>"></div>

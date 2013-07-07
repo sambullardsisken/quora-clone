@@ -12,7 +12,7 @@ Quora::Application.routes.draw do
     resources :answers, :only => [:create]
   end
 
-  resources :answers, :only => [:show] do
+  resources :answers, :only => [:show, :destroy] do
     resources :comments, :only => [:index]
   end
 

@@ -7,12 +7,18 @@ class AnswersController < ApplicationController
     @answer.user_id = current_user.id
     @answer.votes = 0
     @answer.save!
-    render :json => @answer
+    render :json => @answer.to_json(:include => :user)
   end
 
   def show
     @answer = Answer.find(params[:id])
     @comments = @answer.comments
+  end
+
+  def destroy
+    @answer = Answer.find(params[:id])
+    Answer.destroy(@answer.id)
+    render :json => @answer
   end
 
 end

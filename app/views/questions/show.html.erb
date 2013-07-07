@@ -20,7 +20,7 @@ Tags:
   <% count = answer.comments.count %>
    <%comments_text = count == 1 ? "comment" : "comments"%>
    <%votes_text = answer.votes == 1 ? "vote" : "votes"%>
-  <li>
+  <li id="answer_listing<%=answer.id%>">
     <%=answer.text%>
     <a href="#"
       class="comment_count"
@@ -43,6 +43,10 @@ Tags:
     <% end %>
     </div>
     Posted by: <%=answer.user.username%>
+
+    <% if current_user.answers.include?(answer)%>
+      <a href="#" class="delete_answer" data-id="<%=answer.id%>">Remove</a>
+    <% end %>
 
     <div id="comments_container<%=answer.id%>"></div>
 

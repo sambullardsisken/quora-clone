@@ -16,7 +16,11 @@
 //= require_tree .
 
 $(function(){
-
+  $(".delete_answer").on("click", function(event) {
+    event.preventDefault();
+    var answerId = $(this).attr("data-id");
+    deleteAnswer(answerId);
+  });
 
   $(".answer_question").on("click", function(event) {
     event.preventDefault();
@@ -38,10 +42,25 @@ $(function(){
         type: "post",
         data: answer,
         success: function(answerData) {
-          $("#answer_list" + id).append($("<li></li>").html(answerData.text));
+          var answerView = JST["templates/answer_view"]({answer: answerData})
+          console.log(answerData.id)
+          var newListItem = $("<li></li>")
+          $(newListItem).attr('id', "answer_listing" + answerData.id);
+          newListItem.html(answerView);
+          $("#answer_list" + id).append(newListItem);
+
           $(".answer_form_submit").unbind("click");
           $("#question_box" + id).html("");
-          $("#answer_question" + id).html("Add Answer")
+          $("#answer_question" + id).html("Add Answer");
+          $(".delete_answer").on("click", function(event) {
+            console.log("click")
+            console.log(this)
+            event.preventDefault();
+            var answerId = $(this).attr("data-id");
+            console.log(answerId)
+            console.log($("#answer_listing" + answerId).html())
+            deleteAnswer(answerId);
+          });
         }
       });
     });
@@ -119,6 +138,7 @@ $(function(){
     var that = this;
     event.preventDefault();
     var answerId = parseInt($(this).attr("data-id"));
+    console.log(answerId)
     $.ajax({
       url: "/answer_votes.json",
       type: "post",
@@ -135,6 +155,7 @@ $(function(){
     var that = this;
     event.preventDefault();
     var answerId = parseInt($(this).attr("data-id"));
+    console.log(answerId)
     $.ajax({
       url: "/answer_down_votes.json",
       type: "post",
@@ -244,6 +265,18 @@ function unfollowQuestion(questionId, context) {
     success: function() {
       console.log("unfollowing")
       toggleMessage(context, "Follow", "Unfollow");
+    }
+  });
+}
+
+function deleteAnswer(answerId) {
+  $.ajax({
+    url: "/answers/" + answerId + ".json",
+    type: "delete",
+    success: function() {
+      console.log("DELETE")
+
+      $("#answer_listing" + answerId).remove();
     }
   });
 }

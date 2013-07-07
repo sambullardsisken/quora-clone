@@ -9,7 +9,6 @@ class QuestionFollowingsController < ApplicationController
 
   def destroy
     @following = QuestionFollowing.where({user_id: current_user.id, question_id: params[:id]}).first
-    puts @following
     QuestionFollowing.destroy(@following.id)
     respond_to do |format|
       format.json { render :json => @following }
