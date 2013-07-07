@@ -5,6 +5,7 @@
 
 
 <h4>Subjects Following</h4>
+<div class="subjects_following"></div>
 <ul>
   <% @subjects.each do |subject| %>
   <li><%=subject.name%>
@@ -22,12 +23,7 @@
 <h4>Trending Topics</h4>
 <div class="trending"></div>
 
-<h4>Your Questions</h4>
-<ul>
-<% @user.questions.each do |question| %>
-<li><%= question.title %></li>
-<% end %>
-</ul>
+<a href="/users/<%=@user.id%>/questions">Your Questions</a>
 
 
 <%=link_to "All Questions", questions_url, :method => :get%>

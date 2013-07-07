@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
     if params.include?(:topic_id)
       @topic = Topic.find(params[:topic_id])
       @questions = @topic.questions
+    elsif params.include?(:user_id)
+      @questions = User.find(params[:user_id]).questions
     else
       @questions = Question.all
     end
@@ -34,7 +36,8 @@ class QuestionsController < ApplicationController
     current_user.topical_questions.each do |question|
       questions << question unless questions.include?(question)
     end
-    questions << current_user.followed_questions
+    followed_questions = current_user.followed_questions
+    questions << followed_questions
     @questions = questions.sort_by { |question| question.latest_update_time }
     @questions.reverse!
     respond_to do |format|

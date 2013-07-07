@@ -1,7 +1,9 @@
 Quora::Application.routes.draw do
   root to: 'users#new'
 
-  resources :users
+  resources :users do
+    resources :questions, :only => [:index]
+  end
   resource :session
   resources :questions do
     collection do
