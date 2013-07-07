@@ -32,7 +32,9 @@ Tags:
     <%=votes_text%></div>
 
     <div id="vote_text<%=answer.id%>">
-    <% if current_user.answers_voted_on.include?(answer)%>
+    <% if current_user.answers.include?(answer) %>
+    <%=''%>
+    <% elsif current_user.answers_voted_on.include?(answer)%>
     <%="upvoted"%>
     <% elsif current_user.answers_downvoted.include?(answer)%>
     <%="downvoted"%>
