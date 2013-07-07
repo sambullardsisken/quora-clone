@@ -1,7 +1,6 @@
 <form action="<%= users_url %>" method="post">
 
-  <h3>Choose some subjects you're interested in</h3>
-  <h4>Subjects:</h4>
+  <h4>Choose some subjects you're interested in</h4>
   <ul>
     <% @subjects.each do |subject| %>
     <li><input
@@ -10,9 +9,10 @@
           value="<%=subject.id%>"
           id="subject_id">
         <label for="subject_id"><%=subject.name%></label>
+        </li>
         <% end %>
         <br>
-        </li>
+
 
   <label for="user_username">Username</label>
   <input type="text" name="user[username]" id="user_username">
@@ -24,4 +24,3 @@
 </form>
 
 
-<%=link_to "log in", new_session_url, :method => :get%>

@@ -1,0 +1,22 @@
+<% if logged_in? %>
+<%= link_to "Home", user_url(current_user), :class => 'brand' %>
+<% end %>
+
+<ul class="nav">
+  <% if logged_in? %>
+    <li>
+    <%= link_to('Logout', session_url, :method =>'delete') %>
+    </li>
+  <% else %>
+    <li>
+    <%= link_to('Login', new_session_url)  %>
+    </li>
+  <% end %>
+  <% if logged_in? %>
+
+  <% else %>
+    <li>
+    <%= link_to('Sign up', new_user_url)  %>
+    </li>
+  <% end %>
+</ul>
