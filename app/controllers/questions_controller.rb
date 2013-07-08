@@ -5,7 +5,8 @@ class QuestionsController < ApplicationController
       @topic = Topic.find(params[:topic_id])
       @questions = @topic.questions
     elsif params.include?(:user_id)
-      @questions = User.find(params[:user_id]).questions
+      @params_user = User.find(params[:user_id])
+      @questions = @params_user.questions
     else
       @questions = Question.all
     end

@@ -1,5 +1,8 @@
-<h3>Open questions</h3>
-<% unless @topic.nil? %>
+<% if !@params_user.nil? %>
+<h4><%=@user.username%></h4>
+<% elsif @topic.nil? %>
+<h4>All Questions</h4>
+<% else %>
 <h4><%=@topic.name%></h4>
 <% end %>
 
@@ -10,10 +13,10 @@
   <li>
     <%=link_to question.title, question_url(question)%>
     <%=question.answers.count%> <%=text%>
+     <a href="#" class="follow_question" data-id="<%=question.id%>"><small><%=follow_message%></small></a>
     <br>
     <%=question.created_at.localtime.strftime('%m/%d/%Y %H:%M')%>
 
-    <a href="#" class="follow_question" data-id="<%=question.id%>"><%=follow_message%></a>
   </li>
   <% end %>
 </ul>
