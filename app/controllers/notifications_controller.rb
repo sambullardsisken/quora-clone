@@ -13,7 +13,7 @@ class NotificationsController < ApplicationController
       next if notes.include?(comment) || comment.user == current_user
       notes << comment.to_json(:include => [:question, :user])
     end
-    sorted = notes.sort_by {|note| JSON.parse(note)["created_at"]}
+    sorted = notes.sort_by {|note| JSON.parse(note)["created_at"]}.reverse
     respond_to do |format|
       format.html { render :index }
       format.json { render :json => sorted }
