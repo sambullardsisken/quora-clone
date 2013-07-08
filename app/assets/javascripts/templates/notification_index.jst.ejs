@@ -1,14 +1,20 @@
-<% for (var key in items) { %>
+<% items.forEach(function(item) {%>
   <li>
-    <%var username = JSON.parse(key).user.username%>
-    <%var className = determineClass(JSON.parse(key))%>
-    <%=className%> posted by <%=username%>
-    <%=getTimeStamp(JSON.parse(key).created_at)%>
-    <%var title = JSON.parse(key).question.title%>
-    <a href="/questions/<%=JSON.parse(key).question.id%>"><%=title%></a>
-    <br>
-    <%=JSON.parse(key).text%>
+    <%var username = JSON.parse(item).user.username%>
+    <%var className = determineClass(JSON.parse(item))%>
+    <%var message = className === "Follow" ? "started following your question" : "posted" %>
+    <%if (className === "Follow") {%>
+      <%className = "" %>
+    <%}%>
 
+    <%=username%> <%=message%> <%=className%>
+    <%=getTimeStamp(JSON.parse(item).created_at)%>
+    <%var title = JSON.parse(item).question.title%>
+    <a href="/questions/<%=JSON.parse(item).question.id%>"><%=title%></a>
+    <br>
+    <%=JSON.parse(item).text%>
+
+
+<%}) %>
 
   </li>
-<%}%>

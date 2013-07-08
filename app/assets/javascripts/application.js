@@ -238,7 +238,10 @@ function getTrendingTopics() {
 }
 
 function determineClass(obj) {
-  if (obj.question_id !== undefined) {
+  if (obj.question_id !== undefined && obj.text === undefined) {
+    return "Follow"
+  }
+  else if (obj.question_id !== undefined) {
     return "Answer";
   }
   else if (obj.answer_id !== undefined) {
