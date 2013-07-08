@@ -9,6 +9,7 @@ gem 'pg'
 gem 'bcrypt-ruby'
 gem 'ejs'
 gem 'bootstrap-sass'
+gem 'sunspot_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

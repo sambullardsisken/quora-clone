@@ -1,7 +1,13 @@
 <% for (var key in items) { %>
   <li>
-    <%=JSON.parse(key).text%> posted at
-    <%=new Date(JSON.parse(key).created_at)%>
+    <%var username = JSON.parse(key).user.username%>
+    <%var className = determineClass(JSON.parse(key))%>
+    <%=className%> posted by <%=username%>
+    <%=getTimeStamp(JSON.parse(key).created_at)%>
+    <%var title = JSON.parse(key).question.title%>
+    <a href="/questions/<%=JSON.parse(key).question.id%>"><%=title%></a>
+    <br>
+    <%=JSON.parse(key).text%>
 
 
   </li>

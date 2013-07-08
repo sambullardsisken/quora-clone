@@ -6,11 +6,11 @@ class NotificationsController < ApplicationController
   #   end
     current_user.replies.each do |reply|
       next if notes.include?(reply) || reply.user == current_user
-      notes[reply.to_json(:include => :question)] = reply.user
+      notes[reply.to_json(:include => [:question, :user])] = reply.user
     end
     current_user.answer_comments.each do |comment|
       next if notes.include?(comment) || comment.user == current_user
-      notes[comment.to_json(:include => :question)] = comment.user
+      notes[comment.to_json(:include => [:question, :user])] = comment.user
     end
     respond_to do |format|
       format.html { render :index }

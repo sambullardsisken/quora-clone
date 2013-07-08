@@ -6,6 +6,7 @@
 <a href="#" class="new_question_link">Ask a Question</a>
 <br>
 <div class="question"></div>
+<%=link_to "Notifications", notifications_url, :method => :get%>
 
 <h4>Subjects Following</h4>
 <div class="subjects_following"></div>
@@ -45,24 +46,26 @@
 </ul>
 </div>
 
-<%=link_to "Notifications", notifications_url, :method => :get%>
+
 
 <script type="text/javascript">
 $(function() {
   getFeed();
-  var toggle = "recent";
+  toggle = "recent";
   getTrendingTopics();
   $(".get_most_recent").on("click", function(event) {
-    var toggle = "recent";
+    toggle = "recent";
     event.preventDefault
     getFeed();
   });
   $(".get_most_popular").on("click", function(event) {
-    var toggle = "popular";
+    toggle = "popular";
+    console.log(toggle)
     event.preventDefault;
     getPopular();
   })
   setInterval(function() {
+    console.log(toggle)
     toggle === "popular" ? getPopular() : getFeed();
     getTrendingTopics();
   }, 60 * 1000);
