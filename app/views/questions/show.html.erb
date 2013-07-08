@@ -1,4 +1,5 @@
 <h4><%=@question.title%></h4>
+<h5><%=@question.body%></h5>
 <h6>Asked by: <%=@question.user.username%>
 <%=@question.created_at.localtime.strftime('%m/%d/%Y %H:%M')%></h6>
 <%text = @answers.count == 1 ? "answer" : "answers"%>

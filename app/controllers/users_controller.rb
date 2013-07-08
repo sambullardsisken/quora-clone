@@ -24,5 +24,4 @@ class UsersController < ApplicationController
     @subjects = @user.subjects
     render :show
   end
-
 end

@@ -1,0 +1,11 @@
+<ul>
+  <% questions.forEach(function(question) { %>
+    <li>
+      <a href="/questions/<%=question.id%>"> <%= question.title %> </a>
+      <%=question.answers.length%> Answers
+      <%=question.comments.length%> Comments
+      <br>
+      <%=getTimeStamp(question.created_at)%>
+    </li>
+  <%})%>
+</ul>

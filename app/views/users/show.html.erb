@@ -35,25 +35,35 @@
 
 
 <div class="feed">
-<h4>Most Recent</h4>
-<a href="#" class="refresh_feed">refresh</a>
+  <div style="clear: both">
+<a href="#" class="get_most_recent"><h5 style="float: left">Most Recent</h5></a>
+<a href="#" class="get_most_popular"><h5 style="float: left" class="get_most_popular">Popular</h5></a>
+  </div>
+  <hr />
 <div class="feed_questions"></div>
 <ul>
-
-
 </ul>
 </div>
+
+<%=link_to "Notifications", notifications_url, :method => :get%>
 
 <script type="text/javascript">
 $(function() {
   getFeed();
+  var toggle = "recent";
   getTrendingTopics();
-  $(".refresh_feed").on("click", function(event) {
+  $(".get_most_recent").on("click", function(event) {
+    var toggle = "recent";
     event.preventDefault
     getFeed();
   });
+  $(".get_most_popular").on("click", function(event) {
+    var toggle = "popular";
+    event.preventDefault;
+    getPopular();
+  })
   setInterval(function() {
-    getFeed();
+    toggle === "popular" ? getPopular() : getFeed();
     getTrendingTopics();
   }, 60 * 1000);
 });

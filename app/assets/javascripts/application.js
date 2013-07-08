@@ -203,6 +203,29 @@ function getFeed() {
   });
 }
 
+function getPopular() {
+  $.ajax({
+    url: "/questions/popular.json",
+    type: "get",
+    success: function(popularData) {
+      popularView = JST["templates/popular"]({ questions: popularData })
+      $(".feed_questions").html(popularView);
+    }
+  });
+}
+
+function getNotifications() {
+  $.ajax({
+    url: "/notifications.json",
+    type: "get",
+    success: function(data) {
+      console.log(data);
+      notifyView = JST["templates/notification_index"]({items: data})
+      $(".notification_items").html(notifyView);
+    }
+  });
+}
+
 function getTrendingTopics() {
   $.ajax({
     url: "/topics/trending.json",

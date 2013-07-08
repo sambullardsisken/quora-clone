@@ -8,6 +8,7 @@ Quora::Application.routes.draw do
   resources :questions do
     collection do
       get 'feed'
+      get 'popular'
     end
     resources :answers, :only => [:create]
   end
@@ -26,6 +27,8 @@ Quora::Application.routes.draw do
     end
     resources :questions, :only => [:index]
   end
+
+  resources :notifications, :only => [:index]
 
   resources :comments, :only => [:create]
   resources :answer_votes, :only => [:create]

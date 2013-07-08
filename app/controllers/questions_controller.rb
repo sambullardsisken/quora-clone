@@ -47,5 +47,13 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def popular
+    questions = Question.all :include => [:answers, :comments]
+    @sorted = questions.sort_by { |q| q.answers.size + q.comments.size }.reverse
+    respond_to do |format|
+      format.json { render :json => @sorted.to_json(:include => [:comments, :answers])}
+    end
+  end
+
 
 end
