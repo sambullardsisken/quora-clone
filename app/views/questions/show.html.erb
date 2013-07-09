@@ -6,16 +6,17 @@
 <div class="answer_count"><%=@answers.count%> <%=text%></div>
 <br>
 Tags:
+<div class="tag_list">
 <% @topics.each do |topic| %>
 <%=link_to topic.name, topic_questions_url(topic)%>
 <%end%>
+</div>
 <br>
-<a href="#" class="add topic link">Add Topic</a>
+<a href="#" class="add_topic_link" data-id="<%=@question.id%>">Add Topic</a>
 <div class="add_topic"></div>
 <br>
 <h4>Answers:</h4>
-<a href="#" class="answer_question" id="answer_question<%=@question.id%>" data-id="<%=@question.id%>">Add Answer</a>
-<div id="question_box<%=@question.id%>"></div>
+
 <ul id="answer_list<%=@question.id%>">
   <% @answers.each do |answer| %>
   <% count = answer.comments.count %>
@@ -29,10 +30,10 @@ Tags:
       <span id="count<%=answer.id%>"><%=count%></span>
       <span id="comments_text<%=answer.id%>"><%=comments_text%></span>
     </a>
-    <div id="vote_count<%=answer.id%>"><%=answer.votes%>
+    <div class="vote count" id="vote_count<%=answer.id%>"><%=answer.votes%>
     <%=votes_text%></div>
 
-    <div id="vote_text<%=answer.id%>">
+    <div class="vote_text" id="vote_text<%=answer.id%>">
     <% if current_user.answers.include?(answer) %>
     <%=''%>
     <% elsif current_user.answers_voted_on.include?(answer)%>
@@ -61,10 +62,51 @@ Tags:
   <% end %>
   </ul>
 
+  <a href="#" class="answer_question" id="answer_question<%=@question.id%>" data-id="<%=@question.id%>">Add Answer</a>
+  <div id="question_box<%=@question.id%>"></div>
+
 <%=link_to "back to user page", user_url(@user)%>
 <br>
 <%=link_to "all questions", questions_url%>
 <br>
+
+
+<script type="text/javascript">
+$(function() {
+  $(".add_topic_link").on("click", function(event) {
+    var id = $(this).attr("data-id");
+    console.log(id)
+    event.preventDefault();
+    toggleMessage(this, "Add Topic", "cancel")
+    $.ajax({
+      url: "/topics.json",
+      type: "get",
+      success: function(topicsData) {
+        if ($(".add_topic").html() === "") {
+          var selectTopic = JST["templates/topic_select_existing"]({topics: topicsData})
+          $(".add_topic").html(selectTopic);
+        }
+        else {
+          $(".add_topic").html("");
+        }
+        $(".submit_topic").on("click", function(event) {
+          event.preventDefault();
+          var topicId = [parseInt($(".topic_select").val())];
+            $.ajax({
+              url:"/questions/" + id + ".json",
+              type: "put",
+              data: {question: topicId},
+              success: function(questionData) {
+               $(".add_topic").html("");
+               $(".add_topic_link").html("Add Topic");
+              }
+            });
+          });
+      }
+    });
+  });
+});
+</script>
 
 
 

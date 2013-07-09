@@ -13,7 +13,7 @@
   <li>
     <%=link_to question.title, question_url(question)%>
     <%=question.answers.count%> <%=text%>
-     <a href="#" class="follow_question" data-id="<%=question.id%>"><small><%=follow_message%></small></a>
+     <a href="#" class="follow_question" data-id="<%=question.id%>"><%=follow_message%></a>
     <br>
     <%=question.created_at.localtime.strftime('%m/%d/%Y %H:%M')%>
 

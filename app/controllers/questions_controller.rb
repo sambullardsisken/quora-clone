@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   def index
     @user = current_user
+    @topics = Topic.all
     if params.include?(:topic_id)
       @topic = Topic.find(params[:topic_id])
       @questions = @topic.questions
@@ -30,6 +31,16 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @topics = @question.topics
     @answers = @question.answers.sort_by {|answer| answer.votes}.reverse
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    new_topic_ids = params[:question]
+    @question.topic_ids = @question.topic_ids.concat(new_topic_ids)
+    @question.save!
+    respond_to do |format|
+      format.json { render :json => @question }
+    end
   end
 
   def feed

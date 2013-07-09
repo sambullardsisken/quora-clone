@@ -1,0 +1,10 @@
+<select class="topic_select" name="question[topic_ids][]" size="1">
+  <% topics.forEach(function(topic) { %>
+    <option
+     class="add_topic"
+     value="<%=topic.id%>">
+     <%=topic.name%>
+   </option>
+  <% }); %>
+</select>
+<a href="#" class="submit_topic">submit</a>
