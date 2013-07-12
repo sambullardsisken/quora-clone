@@ -35,7 +35,7 @@ t7 = s3.topics.create!(name: "physics")
 t8 = s3.topics.create!(name: "books")
 
 t9 = s4.topics.create!(name: "music")
-t10 = s5.topics.create!(name: "visual arts")
+t10 = s4.topics.create!(name: "visual arts")
 
 
 

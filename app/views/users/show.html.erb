@@ -37,7 +37,7 @@
 
 <div class="feed">
   <div style="clear: both">
-<a href="#" class="get_most_recent"><h5 style="float: left">Most Recent</h5></a>
+<a href="#" class="get_most_recent"><h5 class="selected" style="float: left">Most Recent</h5></a>
 <a href="#" class="get_most_popular"><h5 style="float: left" class="get_most_popular">Popular</h5></a>
   </div>
   <hr />
@@ -54,18 +54,20 @@ $(function() {
   toggle = "recent";
   getTrendingTopics();
   $(".get_most_recent").on("click", function(event) {
+    $(this).find('h5').addClass('selected')
+    $(".get_most_popular").find('h5').removeClass('selected');
     toggle = "recent";
     event.preventDefault
     getFeed();
   });
   $(".get_most_popular").on("click", function(event) {
+    $(".get_most_recent").find('h5').removeClass('selected');
+    $(this).find('h5').addClass('selected');
     toggle = "popular";
-    console.log(toggle)
     event.preventDefault;
     getPopular();
   })
   setInterval(function() {
-    console.log(toggle)
     toggle === "popular" ? getPopular() : getFeed();
     getTrendingTopics();
   }, 60 * 1000);
